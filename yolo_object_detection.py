@@ -1,8 +1,5 @@
 import cv2
 import numpy as np
-import glob
-import random
-import time
 
 # Load Yolo
 net = cv2.dnn.readNet("yolo-obj_1000.weights", "yolo-obj.cfg")
@@ -16,10 +13,8 @@ output_layers = [layer_names[i[0] - 1] for i in net.getUnconnectedOutLayers()]
 colors = np.random.uniform(0, 255, size=(len(classes), 3))
 
 
-done = False
-
 def detect_and_show(net):
-    # Loading image
+    # Connecting cam and taking frames
     cap = cv2.VideoCapture(0)
 
     _, img = cap.read()
@@ -70,10 +65,6 @@ def detect_and_show(net):
             cv2.putText(img, label, (x, y + 30), font, 3, color, 2)
 
     cv2.imshow("Image", img)
-    if cv2.waitKey(1) and 0xFF == ord('q'):
-        global done
-        done = True
-        return
     return prediciton
 
 cv2.destroyAllWindows()
