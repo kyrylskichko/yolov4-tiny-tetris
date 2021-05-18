@@ -15,7 +15,7 @@ colors = np.random.uniform(0, 255, size=(len(classes), 3))
 
 def detect_and_show(net):
     # Connecting cam and taking frames
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 
     _, img = cap.read()
     img = cv2.resize(img, None, fx=0.8, fy=0.8)
@@ -66,5 +66,6 @@ def detect_and_show(net):
 
     cv2.imshow("Image", img)
     return prediciton
+
 
 cv2.destroyAllWindows()
