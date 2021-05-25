@@ -1,9 +1,10 @@
 import cv2
 import numpy as np
 
-# Load Yolo
-net = cv2.dnn.readNet("yolo-obj_1000.weights", "yolo-obj.cfg")
 
+# Load Yolo
+net = cv2.dnn.readNet("yolov4-tiny-obj_6000.weights", "yolov4-tiny-obj.cfg")
+cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 # Classes
 classes = ["drop", "left", "rotate", "right"]
 
@@ -13,16 +14,18 @@ output_layers = [layer_names[i[0] - 1] for i in net.getUnconnectedOutLayers()]
 colors = np.random.uniform(0, 255, size=(len(classes), 3))
 
 
+
+
 def detect_and_show(net):
     # Connecting cam and taking frames
-    cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 
     _, img = cap.read()
+
     img = cv2.resize(img, None, fx=0.8, fy=0.8)
     height, width, channels = img.shape
 
     # Detecting objects
-    blob = cv2.dnn.blobFromImage(img, 0.00392, (416, 416), (0, 0, 0), True, crop=False)
+    blob = cv2.dnn.blobFromImage(img, 1.0 / 255, (352, 352), (0, 0, 0), True, crop=True)
 
     net.setInput(blob)
     outs = net.forward(output_layers)
@@ -65,6 +68,8 @@ def detect_and_show(net):
             cv2.putText(img, label, (x, y + 30), font, 3, color, 2)
 
     cv2.imshow("Image", img)
+    cv2.waitKey(1)
+
     return prediciton
 
 
