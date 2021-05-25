@@ -1,6 +1,7 @@
 # yolov4-tetris
-A tetris game, you can play with your hand gestures. Based on YOLO-V4 model.
+A tetris game, you can play with your hand gestures. Based on YOLO-V4-tiny model.
 
-weights file: https://drive.google.com/file/d/1OaF9CboQy2C-iT4OIwjrcIdHXLT_Nh0e/view?usp=sharing
+weights file: https://drive.google.com/file/d/1lCUhQsF3D8mX7_Ot2lyXT_a7DylVW9r6/view?usp=sharing
 
-TODO: increase FPS rate
+TODO: increase FPS ✔
+      train model better 
