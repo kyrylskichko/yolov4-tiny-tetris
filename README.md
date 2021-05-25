@@ -6,3 +6,4 @@ weights file: https://drive.google.com/file/d/1lCUhQsF3D8mX7_Ot2lyXT_a7DylVW9r6/
 TODO:
 increase FPS ✔
 train model better 
+ 
