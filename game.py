@@ -2,6 +2,7 @@ import pygame
 import random
 from yolo_object_detection import detect_and_show, net
 
+
 colors = [
     (0, 0, 0),
     (120, 37, 179),
@@ -144,37 +145,42 @@ pygame.display.set_caption("Tetris")
 
 # Loop until the user clicks the close button.
 done = False
-clock = pygame.time.Clock()
-fps = 25
 game = Tetris(20, 10)
 counter = 0
 
-pressing_down = False
+count = {"rotate": 1,
+         "drop": 1,
+         "right": 1,
+         "left": 1}
 
 while not done:
+    counter += 1
     if game.figure is None:
         game.new_figure()
-    counter += 1
+
     if counter > 100000:
         counter = 0
 
-    if counter % (fps // game.level // 2) == 0 or pressing_down:
+    if counter % 10 == 0:
         if game.state == "start":
             game.go_down()
 
     pred = detect_and_show(net)
 
-    pressing_down = True
-
-    if pred is not None:
-        if pred == "rotate":
+    if pred in count:
+        count[pred] += 1
+        if count["rotate"] % 10 ==0:
             game.rotate()
-        if pred == "drop":
+            count["rotate"] = 1
+        if count["drop"] % 14 ==0:
             game.go_space()
-        if pred == "right":
+            count["drop"] = 1
+        if count["right"] % 5 ==0:
             game.go_side(1)
-        if pred == "left":
+            count["right"] = 1
+        if count["left"] % 5 ==0:
             game.go_side(-1)
+            count["left"] = 1
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -182,10 +188,6 @@ while not done:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 game.__init__(20, 10)
-
-    if event.type == pygame.KEYUP:
-            if event.key == pygame.K_DOWN:
-                pressing_down = False
 
     screen.fill(BLACK)
 
@@ -209,15 +211,11 @@ while not done:
     font = pygame.font.SysFont('Calibri', 25, True, False)
     font1 = pygame.font.SysFont('Calibri', 65, True, False)
     text = font.render("Score: " + str(game.score), True, BLACK)
-    text_game_over = font1.render("Game Over", True, (255, 125, 0))
-    text_game_over1 = font1.render("Press ESC", True, (255, 215, 0))
 
     screen.blit(text, [0, 0])
     if game.state == "gameover":
-        screen.blit(text_game_over, [20, 200])
-        screen.blit(text_game_over1, [25, 265])
+        done = True
 
     pygame.display.flip()
-    clock.tick(fps)
 
 pygame.quit()
