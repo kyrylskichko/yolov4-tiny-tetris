@@ -3,10 +3,10 @@ import numpy as np
 
 
 # Load Yolo
-net = cv2.dnn.readNet("yolov4-tiny-obj_6000.weights", "yolov4-tiny-obj.cfg")
+net = cv2.dnn.readNet("yolov4-tiny-obj_8000.weights", "yolov4-tiny-obj.cfg")
 cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 # Classes
-classes = ["drop", "left", "rotate", "right"]
+classes = ["drop", "left", "right", "rotate"]
 
 
 layer_names = net.getLayerNames()
