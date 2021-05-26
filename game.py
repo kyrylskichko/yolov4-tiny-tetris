@@ -153,6 +153,10 @@ count = {"rotate": 1,
          "right": 1,
          "left": 1}
 
+def restart_counter(dict):
+    for i in dict:
+        dict[i] = 1
+
 while not done:
     counter += 1
     if game.figure is None:
@@ -171,16 +175,16 @@ while not done:
         count[pred] += 1
         if count["rotate"] % 10 ==0:
             game.rotate()
-            count["rotate"] = 1
+            restart_counter(count)
         if count["drop"] % 14 ==0:
             game.go_space()
-            count["drop"] = 1
+            restart_counter(count)
         if count["right"] % 5 ==0:
             game.go_side(1)
-            count["right"] = 1
+            restart_counter(count)
         if count["left"] % 5 ==0:
             game.go_side(-1)
-            count["left"] = 1
+            restart_counter(count)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
