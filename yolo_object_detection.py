@@ -8,12 +8,9 @@ cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 # Classes
 classes = ["drop", "left", "right", "rotate"]
 
-
 layer_names = net.getLayerNames()
 output_layers = [layer_names[i[0] - 1] for i in net.getUnconnectedOutLayers()]
 colors = np.random.uniform(0, 255, size=(len(classes), 3))
-
-
 
 
 def detect_and_show(net):
@@ -25,7 +22,7 @@ def detect_and_show(net):
     height, width, channels = img.shape
 
     # Detecting objects
-    blob = cv2.dnn.blobFromImage(img, 1.0 / 255, (352, 352), (0, 0, 0), True, crop=True)
+    blob = cv2.dnn.blobFromImage(img, 1.0 / 255, (416, 316), (0, 0, 0), True, crop=True)
 
     net.setInput(blob)
     outs = net.forward(output_layers)
