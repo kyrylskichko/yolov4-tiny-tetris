@@ -5,7 +5,7 @@ weights file: https://drive.google.com/file/d/1n_KgzCqeLipymhLv_cBY4cqhJpo7GIBb/
 
 # Control (for right hand)
 
-👆 - rotate
+👆 - rotate \n
 🤚 - drop
 fist with open thumb to right - move right 
 fist with open thumb to left - move left 
